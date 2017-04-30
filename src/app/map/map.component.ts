@@ -4,6 +4,7 @@ import { GeoDataService } from 'app/core/geo-data.service';
 
 declare var AmCharts: any;
 declare var geojson2svg: any;
+declare var $: any;
 
 @Component({
   selector: 'app-map',
@@ -17,9 +18,18 @@ export class MapComponent implements OnInit {
   map: any;
 
   ngOnInit() {
-    this.geoService.getDistrictMap('ga', 'lower')
+    /*this.geoService.getDistrictMap('ga', 'upper')
     .then((data) => {
       this.map = AmCharts.makeChart("chartdiv", this.getMapObject(data.json()));
+    })
+    .catch(err => console.error(err));*/
+  }
+
+  getMap(house) {
+    this.geoService.getDistrictMap('ga', house)
+    .then((data) => {
+      this.map = AmCharts.makeChart("chartdiv", this.getMapObject(data.json()));
+      $('a[href="http://www.amcharts.com/javascript-maps/"]').css('display', 'none');
     })
     .catch(err => console.error(err));
   }
