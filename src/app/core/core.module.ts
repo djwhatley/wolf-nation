@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { GeoDataService } from './geo-data.service';
+import { LegislatorsService } from './legislators/legislators.service';
 
 import { LegislatorsComponent } from './legislators/legislators.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -13,6 +14,6 @@ import { LayoutComponent } from './layout/layout.component';
     RouterModule
   ],
   declarations: [LegislatorsComponent, LayoutComponent],
-  providers: [GeoDataService]
+  providers: [GeoDataService, LegislatorsService]
 })
 export class CoreModule { }

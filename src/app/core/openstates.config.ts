@@ -1,1 +1,0 @@
-export const API_URL: string = 'https://openstates.org/api/v1/';
