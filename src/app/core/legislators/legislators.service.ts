@@ -4,21 +4,21 @@ import 'rxjs/add/operator/toPromise';
 
 import { Legislator } from './legislator.model';
 
-import { API_URL, API_KEY } from '../api.config';
+import { API_URL, API_KEY, SHEETS } from '../api.config';
 
 @Injectable()
 export class LegislatorsService {
 
   constructor(private http: Http) { }
   
-  getLegislators(): Promise<Legislator[]> {
-    return this.http.get(API_URL + '1KEg18KJE7NjnIa3umiiNALgPKj1iDML34J71U4_YJDo/' + 'values/' + 'House Vote Count!A4:G183' + '?key=' + API_KEY)
+  getLegislators(house: string): Promise<Legislator[]> {
+    return this.http.get(API_URL + '1KEg18KJE7NjnIa3umiiNALgPKj1iDML34J71U4_YJDo/' + 'values/' + SHEETS[house] + '!A4:G183' + '?key=' + API_KEY)
       .toPromise()
-      .then((res) => this.transform(res.json()))
+      .then((res) => this.transform(res.json(), house))
       .catch(err => console.error(err));
   }
 
-  transform(data: any): Legislator[] {
+  private transform(data: any, house: string): Legislator[] {
     let legs = [] as Legislator[];
 
     for (let row of data.values) {
@@ -27,7 +27,7 @@ export class LegislatorsService {
 
       legs.push({
         state: 'GA',
-        chamber: 'lower',
+        chamber: house,
         district: Number.parseInt(row[0]),
         full_name: row[1],
         party: row[2],
