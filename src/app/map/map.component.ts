@@ -83,7 +83,7 @@ export class MapComponent implements OnInit {
       if (leg.score > 0 && leg.score < 4) {
         areas.push({
           id: feat.properties['NAMELSAD'],
-          customData: leg.full_name,
+          customData: '(' + leg.party + ') ' + leg.full_name,
           value: leg.score,
           color: leg.score == 1 ? '#93c47d' : 
                 (leg.score == 2 ? '#ffd966' :  
