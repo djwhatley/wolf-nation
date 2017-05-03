@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href https://djwhatley.github.io/wolf-nation/ & ngh"
+    "deploy": "ng build --prod --base-href https://djwhatley.github.io/wolf-nation/ && cp dist/index.html dist/404.html && ngh"
   },
   "private": true,
   "dependencies": {
