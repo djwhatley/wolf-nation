@@ -83,7 +83,10 @@ export class MapComponent implements OnInit {
       if (leg.score > 0 && leg.score < 4) {
         areas.push({
           id: feat.properties['NAMELSAD'],
-          customData: '(' + leg.party + ') ' + leg.full_name,
+          customData: '(' + leg.party + ') ' + leg.full_name + '<br>' + 
+                (leg.score == 1 ? 'SUPPORTIVE' : 
+                (leg.score == 2 ? 'UNSURE' :  
+                (leg.score == 3 ? 'NOT SUPPORTIVE' : void 0))),
           value: leg.score,
           color: leg.score == 1 ? '#93c47d' : 
                 (leg.score == 2 ? '#ffd966' :  
@@ -92,6 +95,8 @@ export class MapComponent implements OnInit {
           outlineColor: leg.score == 1 ? '#5b9443' : 
                        (leg.score == 2 ? '#fbbc00' :  
                        (leg.score == 3 ? '#b44229' : void 0)),
+          rollOverColor: leg.party == 'R' ? '#f00' : (leg.party == 'D' ? '#04f' : ''),
+          selectedColor: leg.party == 'R' ? '#f00' : (leg.party == 'D' ? '#04f' : '')
         });
       }
     }
@@ -107,9 +112,10 @@ export class MapComponent implements OnInit {
       },
       areasSettings: {
         autoZoom: true,
-        balloonText: '[[customData]]<br>[[title]]',
+        balloonText: '[[title]]<br>[[customData]]',
         selectedColor: '#CC0000'
-      }
+      },
+      zoomDuration: 0.1
     };
   };
 
