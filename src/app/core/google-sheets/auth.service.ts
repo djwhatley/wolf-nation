@@ -20,7 +20,7 @@ export class AuthService {
   private getOAuthUrl(): string {
     let url: string = 'https://accounts.google.com/o/oauth2/v2/auth';
     url += '?client_id=' + OAUTH_ID;
-    url += '&redirect_uri=' + (environment.production ? 'https://djwhatley.github.io/' : 'http://localhost:4200/');
+    url += '&redirect_uri=' + (environment.production ? 'https://djwhatley.github.io/wolf-nation/' : 'http://localhost:4200/');
     url += '&response_type=token';
     url += '&scope=https://www.googleapis.com/auth/spreadsheets.readonly'
 
