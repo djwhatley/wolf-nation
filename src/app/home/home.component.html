@@ -1,0 +1,7 @@
+<div *ngIf="!isAuth">
+  <button (click)="requestAuth()">Login with Google</button>
+</div>
+
+<div *ngIf="isAuth">
+  <a [routerLink]="'/vmap'">Volunteer Map</a>
+</div>

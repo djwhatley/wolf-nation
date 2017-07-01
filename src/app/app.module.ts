@@ -9,10 +9,14 @@ import { CoreModule } from './core/core.module';
 import { MapModule } from './map/map.module';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { VolunteerMapComponent } from './volunteer-map/volunteer-map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    VolunteerMapComponent
   ],
   imports: [
     BrowserModule,
