@@ -2,4 +2,28 @@
 
 <span *ngIf="loading">Loading...</span>
 
+<p *ngIf="!loading && volunteers.length">Active Volunteers: {{volunteers.length}}</p>
+
 <div id="chartdiv"></div>
+
+<div *ngIf="selectedDistrict">
+    <h4>{{selectedDistrict.title}}</h4>
+    <p>Volunteers: {{selectedDistrict.value}}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vol of districtVolunteers[selectedDistrict.district]">
+                <td>{{vol.name}}</td>
+                <td>{{vol.email}}</td>
+                <td>{{vol.phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

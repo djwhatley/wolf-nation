@@ -33,8 +33,11 @@ export class VolunteerMapComponent implements OnInit {
   allPresent: boolean;
 
   volDict: any = {};
+  districtVolunteers: any = {};
 
   loading: boolean;
+
+  selectedDistrict: any;
 
   ngOnInit() {
     this.loading = true;
@@ -44,17 +47,21 @@ export class VolunteerMapComponent implements OnInit {
 
   getVolunteers() {
     this.sheetCount = 0;
+    this.volunteers = [];
     for (let tab of SHEET_VOLUNTEERS_TABS) {
       this.googService.getValues(SHEET_VOLUNTEERS, tab + '!A4:J')
         .then(res => {
           let data = res.json();
 
           for (let row of data.values) {
-            //let volunteer = new Volunteer();
+            let volunteer = new Volunteer();
 
-            let name = row[0];
-            let phone = row[1];
-            let email = row[2];
+            volunteer.name = row[0];
+            volunteer.phone = row[1];
+            volunteer.email = row[2];
+
+            if (volunteer.name == 'DORMANT WOLF')
+              break;
 
             /*let oa = row[3];
             let lc = row[4];
@@ -75,18 +82,20 @@ export class VolunteerMapComponent implements OnInit {
               if (!hd)
                 continue;
               
-              //volunteer.districts.lower = hd;
+              volunteer.districts = { lower: hd, upper: undefined };
 
-              if (!this.volDict[hd])
-                this.volDict[hd] = 0;
+              if (!this.districtVolunteers[hd])
+                this.districtVolunteers[hd] = [];
 
-              this.volDict[hd]++;
+              this.districtVolunteers[hd].push(volunteer);
+              this.volunteers.push(volunteer);
             }
             else {
               continue;
             }
           }
-
+          
+          console.log(this.districtVolunteers);
 
           this.sheetCount++;
 
@@ -118,7 +127,6 @@ export class VolunteerMapComponent implements OnInit {
     this.map = AmCharts.makeChart("chartdiv", this.getMapObject(this.mapData, this.volunteers));
     $('a[href="http://www.amcharts.com/javascript-maps/"]').css('display', 'none');
     this.loading = false;
-    console.log('done');
   }
 
   getMapObject(geodata: any, volunteers: Volunteer[]) {
@@ -127,39 +135,55 @@ export class VolunteerMapComponent implements OnInit {
     for (let feat of geodata.features) {
       let prop ='SLDLST';
 
-      let dist = Number.parseInt(feat.properties[prop]);//,
-          //leg = this.legDict.get(dist);
+      let dist = Number.parseInt(feat.properties[prop]);
 
-      let num = this.volDict[dist];
-      if (num) {
+      let vols = this.districtVolunteers[dist];
+      if (vols) {
         areas.push({
           id: feat.properties['NAMELSAD'],
-          value: num,
-          customData: '(' + num + ')'
+          value: vols.length,
+          district: dist
         })
       }
     }
-
-    console.log(this.volDict);
 
     let mapData = this.parseGeoJSON(geodata);
 
     return {
       type: 'map',
       theme: 'light',
-      colorSteps: 10,
+      colorSteps: 5,
       dataProvider: {
         mapVar: mapData,
         areas: areas,
       },
       areasSettings: {
         autoZoom: true,
-        balloonText: '[[title]]<br>[[customData]]',
+        balloonText: '[[title]]<br>Volunteers: [[value]]',
         selectedColor: '#CC0000'
       },
-      zoomDuration: 0.1
+      zoomDuration: 0.1,
+      listeners: [
+        {
+          event: 'clickMapObject',
+          method: (ev) => { this.clickMapObject(ev) }
+        },
+        {
+          event: 'homeButtonClicked',
+          method: (ev) => { this.homeButtonClicked(ev) }
+        }
+      ]
     };
   };
+
+  clickMapObject(ev: any) {
+    let obj = ev.mapObject;
+    this.selectedDistrict = obj;
+  }
+
+  homeButtonClicked(ev: any) {
+    this.selectedDistrict = void 0;
+  }
 
   parseGeoJSON(geojson: any, fieldMap?: any) {
 
