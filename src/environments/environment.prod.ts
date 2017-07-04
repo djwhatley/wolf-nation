@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  redirectUrl: 'https://djwhatley.github.io/wolf-nation/'
 };
