@@ -12,13 +12,14 @@ import { GoogleSheetsService } from './google-sheets/google-sheets.service';
 
 import { LegislatorsComponent } from './legislators/legislators.component';
 import { LayoutComponent } from './layout/layout.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule
   ],
-  declarations: [LegislatorsComponent, LayoutComponent],
+  declarations: [LegislatorsComponent, LayoutComponent, NavComponent],
   providers: [AuthHttp, AuthService, GeoDataService, GoogleSheetsService, LegislatorsService, VolunteersService]
 })
 export class CoreModule { }

@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { MapModule } from './map/map.module';
@@ -23,6 +25,7 @@ import { VolunteerMapComponent } from './volunteer-map/volunteer-map.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
     AppRoutingModule,
     CoreModule,
     MapModule
