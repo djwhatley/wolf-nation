@@ -10,7 +10,7 @@ router.get('/teams', (req, res) => {
     db.connect((err, conn) => {
         var teams = conn.collection('teams');
         teams.find({}).toArray((err, docs) => {
-            console.log(docs);
+            res.status(200).json(docs);
         });
     });
 });

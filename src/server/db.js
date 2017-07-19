@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const url = ''; // GET THE MONGODB_URI AND USE IT HERE
+const url = process.env.MONGODB_URI;
 
 module.exports = {
     connect: (callback) => {
@@ -9,7 +9,3 @@ module.exports = {
         });
     }
 }
-
-MongoClient.connect(url, (err, db) => {
-    
-})
