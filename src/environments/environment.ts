@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  redirectUrl: 'http://localhost:4200/'
+  redirectUrl: 'http://localhost:4200/',
+  apiHost: 'http://localhost:3000/',
+  apiUrl: 'api/',
+  oAuthUrl: 'o/'
 };
