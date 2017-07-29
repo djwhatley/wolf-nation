@@ -1,0 +1,59 @@
+<h1>Maps</h1>
+
+<!--<div class="btn-toolbar" role="toolbar">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-secondary">Legislators</button>
+    <button type="button" class="btn btn-secondary">Volunteers</button>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-secondary">House</button>
+    <button type="button" class="btn btn-secondary">Senate</button>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-3">
+    <fieldset class="form-group">
+      <legend>Map Type</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="mapType" id="optionsRadios1" value="leg_support" [(ngModel)]="mapType">
+          Legislators
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="mapType" id="optionsRadios2" value="volunteers" [(ngModel)]="mapType">
+          Volunteers
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <legend>Chamber</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="house" id="optionsRadios3" value="lower" [(ngModel)]="house">
+          House
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="house" id="optionsRadios4" value="upper" [(ngModel)]="house">
+          Senate
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="btn btn-primary" (click)="getMap()">Generate</div>
+  </div>
+
+  <div class="col-9">
+
+    <div id="chartdiv"></div>
+    
+  </div>
+</div>
+
+

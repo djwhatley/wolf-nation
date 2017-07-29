@@ -1,8 +1,10 @@
-<nav class="navbar navbar-inverted">
-    <a href="#" class="navbar-brand">Brand</a>
-    <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let item of navItems">
-            <a class="nav-link" [routerLink]="item.href">{{item.text}}</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-toggleable-md navbar-inverse">
+    <a href="#" class="navbar-brand">WolfPac GA</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item" *ngFor="let item of navItems">
+                <a class="nav-link" [routerLink]="item.href">{{item.text}}</a>
+            </li>
+        </ul>
+    </div>
 </nav>
