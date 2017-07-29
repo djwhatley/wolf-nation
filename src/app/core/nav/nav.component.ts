@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../google-sheets/auth.service';
+import { AuthService } from 'app/core/auth';
 
 @Component({
   selector: 'app-nav',
@@ -20,14 +20,10 @@ export class NavComponent implements OnInit {
     this.isAuth = this.authService.isAuth();
 
     if (this.isAuth) {
-      [
+      this.navItems = [
         {
-          text: 'Legislator Map',
-          href: 'lmap'
-        },
-        {
-          text: 'Volunteer Map',
-          href: 'vmap'
+          text: 'Maps',
+          href: '/maps'
         }
       ];
     }

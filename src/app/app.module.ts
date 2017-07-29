@@ -8,17 +8,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { MapModule } from './map/map.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { VolunteerMapComponent } from './volunteer-map/volunteer-map.component';
+import { MapsComponent } from './maps/maps.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    VolunteerMapComponent
+    MapsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +26,7 @@ import { VolunteerMapComponent } from './volunteer-map/volunteer-map.component';
     HttpModule,
     NgbModule.forRoot(),
     AppRoutingModule,
-    CoreModule,
-    MapModule
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

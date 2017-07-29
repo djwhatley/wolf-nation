@@ -2,38 +2,24 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { GoogleSheetsService } from 'app/core/google-sheets/google-sheets.service';
+import { AuthHttp } from 'app/core/auth';
 import { Volunteer } from './volunteer.model';
 
-import { SHEET_VOLUNTEERS, SHEET_VOLUNTEERS_TABS } from '../google-sheets/config';
+import { environment } from 'environments/environment';
+
+const API_URL: string = environment.apiHost + environment.apiUrl;
 
 @Injectable()
 export class VolunteersService {
 
   constructor(
-    private googService: GoogleSheetsService
+    private http: AuthHttp
   ) { }
 
-  /*getVolunteers(): Promise<Volunteer[]> {
-    let volunteers = [] as Volunteer[];
-
-    for (let tab of SHEET_VOLUNTEERS_TABS) {
-
-    }
-
-    this.googService.getSpreadsheet(SHEET_VOLUNTEERS)
-      .then(res =>  {
-
-      })
-      .catch(err => console.error(err));
+  getVolunteers(state: string): Promise<Volunteer[]> {
+    let url = API_URL + `${state}/volunteers`;
+    return this.http.get(url)
+      .toPromise()
+      .then((res) => res.json() as Volunteer[])
   }
-
-  transform(data: any): Volunteer[] {
-    let volunteers = [] as Volunteer[];
-
-    for (let row of data.values) {
-
-    }
-  }*/
-
 }

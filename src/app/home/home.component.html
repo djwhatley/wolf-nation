@@ -1,7 +1,7 @@
 <div *ngIf="!isAuth">
-  <button (click)="requestAuth()">Login with Google</button>
-</div>
-
-<div *ngIf="isAuth">
-  <a [routerLink]="'/vmap'">Volunteer Map</a>
+  <h3>Welcome</h3>
+  <p>
+    In order to use this application, you will need to connect it to your Google account.
+  </p>
+  <button type="button" class="btn btn-primary" (click)="requestAuth()">Login with Google</button>
 </div>
