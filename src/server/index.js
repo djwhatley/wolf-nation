@@ -1,7 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const fs = require('fs');
 const http = require('http');
-const moment = require('moment');
+const morgan = require('morgan');
 const path = require('path');
 
 const api = require('./api');
@@ -19,21 +20,11 @@ app.use((req, res, next) => {
 });
 
 // Logging
-app.use((req, res, next) => {
-    logmsg(`${req.method} ${req.url}`);
-    res.on('finish', () => {
-        logmsg(`${res.statusCode} ${res.statusMessage}`);
-    });
-    next();
-});
-
-var logmsg = function (message) {
-    let s = new Date().toLocaleString()
-    console.log(`[${moment().format('MM-DD-YYYY HH:mm:ss')}] ` + message);
-}
+//app.use(morgan('[:date[clf]] :method :url HTTP/:http-version - :status - :res[content-length] :response-time ms'));
+app.use(morgan('common'));
 
 // Use 'dist' for static path
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../../dist')));
 
 // API routes
 app.use('/api', api);
@@ -41,13 +32,14 @@ app.use('/o', oauth);
 
 // Send index.html for all other routes
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 
 // Save port 
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
+
 // Start server
 const server = http.createServer(app);
-server.listen(port, () => logmsg(`API server running on port ${port}`));
+server.listen(port, () => console.log(`Server running on port ${port}`));
