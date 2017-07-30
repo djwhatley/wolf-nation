@@ -68,7 +68,7 @@ export class AuthService {
       this.requestAuthorization();
       return;
     }
-    this.http.get(environment.apiHost + environment.oAuthUrl + '/newtoken?refresh_token=' + refreshToken)
+    this.http.get(environment.apiHost + environment.oAuthUrl + 'newtoken?refresh_token=' + refreshToken)
       .toPromise()
       .then((res) => {
         console.log(res);
