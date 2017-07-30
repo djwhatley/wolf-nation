@@ -85,7 +85,17 @@ router.get('/:state/legislators', (req, res) => {
                                     'Authorization': authorization
                                 }
                             }, (err, response, body) => {
+                                if (err) {
+                                    console.error(error);
+                                    res.status(500).send(err);
+                                    return;
+                                }
+
                                 let data = JSON.parse(body);
+                                if (data.error) {
+                                    res.status(data.error.code).send(data.error.message);
+                                    return;
+                                }
 
                                 for (let row of data.values) {
                                     let email = row[6];
@@ -154,6 +164,11 @@ router.get('/:state/volunteers', (req, res) => {
                                 }
                                 
                                 let data = JSON.parse(body);
+
+                                if (data.error) {
+                                    res.status(data.error.code).send(data.error.message);
+                                    return;
+                                }
 
                                 for (let row of data.values) {
                                     let volunteer = { };
