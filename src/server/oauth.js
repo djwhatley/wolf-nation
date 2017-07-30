@@ -28,12 +28,12 @@ router.get('/oauth2login', (req, res) => {
                 frag += '&error_description=' + data['error_description'];
             }
             else {
-                getUserInfo(data['access_token'], (err, info) => {
+                /*getUserInfo(data['access_token'], (err, info) => {
                     console.log(info);
-/*                    let userInfo = JSON.parse(info);
+                    let userInfo = JSON.parse(info);
 
-                    console.log(userInfo);*/
-                });
+                    console.log(userInfo);
+                });*/
 
                 frag += '1';
                 frag += '&access_token=' + data['access_token'];
