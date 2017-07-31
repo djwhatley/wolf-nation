@@ -5,7 +5,7 @@ import {
 } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { AuthService } from './auth.service';
