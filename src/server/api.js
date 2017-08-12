@@ -147,7 +147,7 @@ router.get('/:state/volunteers', (req, res) => {
 
                         let tabcount = 0;
                         for (let tab of SHEET_VOLUNTEERS_TABS) {
-                            let url = SHEETS_API_URL + sheet + '/values/' + '!A4:J';
+                            let url = SHEETS_API_URL + sheet + '/values/' + tab + '!A4:J';
 
                             request({
                                 method: 'get',
@@ -177,7 +177,7 @@ router.get('/:state/volunteers', (req, res) => {
                                     volunteer.phone = row[1];
                                     volunteer.email = row[2];
 
-                                    if (volunteer.name == 'DORMANT WOLF')
+                                    if (volunteer.name == 'VOLUNTEER' || volunteer.name == 'DORMANT WOLF')
                                         break;
 
                                     /*let oa = row[3];
@@ -206,7 +206,8 @@ router.get('/:state/volunteers', (req, res) => {
                                         volunteer.districts.upper = ud;
                                     }
 
-                                    volunteers.push(volunteer);   
+                                    if (volunteer.name)
+                                        volunteers.push(volunteer);   
                                 }
 
                                 tabcount++;
