@@ -11,9 +11,38 @@
     <button type="button" class="btn btn-secondary">Senate</button>
   </div>
 </div> -->
+<div class="row">
+  <div class="col-12">
+
+    <div style="display: inline-block; margin-right: 1rem">
+      <label>Map Type</label>
+      <div>
+        <button type="button" class="btn btn-sm" [class.btn-primary]="mapType == 'leg_support'" [class.btn-secondary]="mapType != 'leg_support'" (click)="mapType = 'leg_support'">Legislators</button>
+        <button type="button" class="btn btn-sm" [class.btn-primary]="mapType == 'volunteers'" [class.btn-secondary]="mapType != 'volunteers'" (click)="mapType = 'volunteers'">Volunteers</button>
+      </div>
+    </div>
+
+    <div style="display: inline-block; margin-right: 1rem">
+      <label>Chamber</label>
+      <div>
+        <button type="button" class="btn btn-sm" [class.btn-primary]="house == 'lower'" [class.btn-secondary]="house != 'lower'" (click)="house = 'lower'">House</button>
+        <button type="button" class="btn btn-sm" [class.btn-primary]="house == 'upper'" [class.btn-secondary]="house != 'upper'" (click)="house = 'upper'">Senate</button>
+      </div>
+    </div>
+
+    <div style="display: inline-block">
+      <div class="btn btn-primary" (click)="getMap()">
+
+        Generate
+      </div>
+    </div>
+
+  </div>
+  
+</div>
 
 <div class="row">
-  <div class="col-3">
+  <!--<div class="col-3">
     <fieldset class="form-group">
       <legend>Map Type</legend>
       <div class="form-check">
@@ -47,13 +76,39 @@
     </fieldset>
 
     <div class="btn btn-primary" (click)="getMap()">Generate</div>
-  </div>
+  </div>-->
 
-  <div class="col-9">
+  <div class="col-6">
+
+    <h4 *ngIf="generatedMap == 'volunteers'">Volunteers: {{volunteers?.length}}</h4>
 
     <div id="chartdiv"></div>
     
   </div>
+
+  <div class="col-6">
+    <div *ngIf="selectedDistrict">
+      <h4>{{selectedDistrict.title}}</h4>
+      <p>Volunteers: {{selectedDistrict.value}}</p>
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let vol of districtVolunteers[selectedDistrict.district]">
+                  <td>{{vol.name}}</td>
+                  <td>{{vol.email}}</td>
+                  <td>{{vol.phone}}</td>
+              </tr>
+          </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  
 </div>
-
-

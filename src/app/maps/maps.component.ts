@@ -45,11 +45,14 @@ export class MapsComponent implements OnInit {
 
   selectedDistrict: any;
 
+  generatedMap: string;
+
   ngOnInit() {
     this.loading = true;
   }
 
   getMap() {
+    delete this.generatedMap;
     switch(this.mapType) {
       case MAP_LEGISLATORS:
         this.getLegislators(this.house);
@@ -86,6 +89,7 @@ export class MapsComponent implements OnInit {
     }
     $('a[href="http://www.amcharts.com/javascript-maps/"]').css('display', 'none');
     this.loading = false;
+    this.generatedMap = this.mapType;
   }
 
   clickMapObject(ev: any) {
