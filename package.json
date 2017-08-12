@@ -29,12 +29,14 @@
     "core-js": "^2.4.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "jwt-simple": "^0.5.1",
     "mongodb": "^2.2.30",
     "morgan": "^1.8.2",
     "request": "^2.81.0",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4",
-    "typescript": "~2.2.0"
+    "typescript": "~2.2.0",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.38",
