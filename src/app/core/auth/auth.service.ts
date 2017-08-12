@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs } from '@angular/http';
+import { Headers, Http, RequestOptions, RequestOptionsArgs } from '@angular/http';
 
-import { OAUTH_ID, TOKEN_ACCESS, TOKEN_EXPIRES, TOKEN_REFRESH } from './config';
+import { JwtHelper } from './auth.jwt';
+import { OAUTH_ID, TOKEN_NAME } from './config';
 import { environment } from 'environments/environment';
 
 export class GoogleToken {
@@ -26,7 +27,7 @@ export class AuthService {
     url += '?client_id=' + OAUTH_ID;
     url += '&redirect_uri=' + environment.apiHost + environment.oAuthUrl + 'oauth2login';
     url += '&response_type=code';
-    url += '&scope=profile https://www.googleapis.com/auth/spreadsheets.readonly';
+    url += '&scope=email https://www.googleapis.com/auth/spreadsheets.readonly';
     url += '&access_type=offline';
 
     return url;
@@ -37,58 +38,37 @@ export class AuthService {
   }
 
   isAuth(): boolean {
-    return this.getAccessToken() != null;
+    let token = this.getToken();
+    return token != null && this.isGoogleTokenValid(token);
   }
 
-  getAccessToken(): string {
-    let exp = localStorage.getItem(TOKEN_EXPIRES);
-    if (exp) {
-      let expires = new Date(exp);
-      let now = new Date();
-
-      if (now.valueOf() < expires.valueOf()) {
-        return localStorage.getItem(TOKEN_ACCESS);
-      }
-    }
-
-    return null; 
+  getToken(): string {
+    return localStorage.getItem(TOKEN_NAME);
   }
 
-  getAccessTokenExpiry(): string {
-    return localStorage.getItem(TOKEN_EXPIRES);
+  isGoogleTokenValid(token: string): boolean {
+    let decoded = JwtHelper.decodeToken(token);
+
+    let exp = new Date(decoded.gt_expires);
+    return (Date.now() > exp.getTime())
   }
 
-  getRefreshToken(): string {
-    return localStorage.getItem(TOKEN_REFRESH);
-  }
-
-  refreshAccessToken(callback: Function) {
-    let refreshToken = localStorage.getItem(TOKEN_REFRESH);
-    if (!refreshToken) {
-      this.requestAuthorization();
-      return;
-    }
-    this.http.get(environment.apiHost + environment.oAuthUrl + 'newtoken?refresh_token=' + refreshToken)
+  refreshToken(callback: Function) {
+    let options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.set('Authorization', 'Bearer ' + this.getToken());
+    this.http.get(environment.apiHost + environment.oAuthUrl + 'newtoken', options)
       .toPromise()
       .then((res) => {
-        console.log(res);
-        this.storeToken(res.json());
+        this.storeToken(res.text());
         callback();
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
   }
 
-  storeToken(token: GoogleToken) {
-    let now = new Date();
-    let t = parseInt(token.expires_in);
-    this.expires = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds() + t, 0);
-
-    localStorage.setItem(TOKEN_EXPIRES, this.expires.toISOString());
-    localStorage.setItem(TOKEN_ACCESS, token.access_token);
-    if (token.refresh_token)
-      localStorage.setItem(TOKEN_REFRESH, token.refresh_token);
+  storeToken(token: string) {
+    localStorage.setItem(TOKEN_NAME, token);  
   }
- 
 }

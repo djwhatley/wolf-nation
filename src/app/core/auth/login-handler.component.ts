@@ -32,7 +32,7 @@ export class LoginHandlerComponent implements OnInit {
           console.error('OAuth Login Error: ', params);
         }
         else {
-          this.authService.storeToken(params as GoogleToken);
+          this.authService.storeToken(params['token']);
         }
         
         this.router.navigateByUrl('home');

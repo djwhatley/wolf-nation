@@ -40,10 +40,7 @@ export class ApiService {
         if (this.authService.isAuth())
             callback();
         else {
-            let refreshToken = this.authService.getRefreshToken();
-            if (refreshToken) {
-                this.authService.refreshAccessToken(callback);
-            }
+            this.authService.refreshToken(callback);
         }
     }
 }

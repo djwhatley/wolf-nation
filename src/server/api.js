@@ -1,3 +1,4 @@
+const jwt = require('express-jwt');
 const request = require('request');
 const express = require('express');
 const router = express.Router();
@@ -54,8 +55,13 @@ router.get('/:state', (req, res) => {
     });
 });
 
-router.get('/:state/legislators', (req, res) => {
-    let authorization = req.headers['authorization'];
+router.get('/:state/legislators', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
+    if (!req.user) {
+        res.status(401).send();
+        return;
+    }
+
+    let authorization = 'Bearer ' + req.user.google_token;
 
     db.connect((err, conn) => {
         if (err)
@@ -129,8 +135,13 @@ router.get('/:state/legislators', (req, res) => {
     })
 });
 
-router.get('/:state/volunteers', (req, res) => {
-    let authorization = req.headers['authorization'];
+router.get('/:state/volunteers', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
+    if (!req.user) {
+        res.status(401).send();
+        return;
+    }
+
+    let authorization = 'Bearer ' + req.user.google_token;
     
     db.connect((err, conn) => {
         if (err)

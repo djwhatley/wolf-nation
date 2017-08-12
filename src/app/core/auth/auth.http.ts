@@ -43,31 +43,9 @@ export class AuthHttp {
             options.headers = new Headers();
         }
 
-        let token = this.authService.getAccessToken();
+        let token = this.authService.getToken();
         if (token)
             options.headers.append('Authorization', 'Bearer ' + token);
-/*        if (this.authService.isAuth()) {
-            options.headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
-            options.headers.append('X-Wolf-Token-Exp', this.authService.getAccessTokenExpiry());
-            options.headers.append('X-Wolf-Refresh-Token', this.authService.getRefreshToken());
-        }*/
         return options;
-    }
-
-    intercept(observable: Observable<Response>): Observable<Response> {
-        return observable.map((res) => {
-            if (res.headers.has('X-Wolf-New-Token')) {
-                let token = res.headers.get('X-Wolf-New-Token');
-                let exp = res.headers.get('X-Wolf-Token-Expires-In');
-
-                this.authService.storeToken({
-                    access_token: token,
-                    expires_in: exp,
-                    token_type: 'Bearer'
-                });
-            }
-
-            return res;
-        });
     }
 }
