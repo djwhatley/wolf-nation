@@ -15,7 +15,7 @@ const SHEET_LCR_TABS = {
 const SHEET_VOLUNTEERS_TABS = [
     "Dylan's Volunteers",
     "Heidi's Volunteers",
-    "Vaughn's Volunteers"
+    "Kyle's Volunteers"
 ];
 
 router.get('/', (req, res) => {
@@ -190,6 +190,8 @@ router.get('/:state/volunteers', jwt({ secret: process.env.JWT_SECRET }), (req, 
 
                                     if (volunteer.name == 'VOLUNTEER' || volunteer.name == 'DORMANT WOLF')
                                         break;
+                                    else if (volunteer.name == 'ACTIVE VOLUNTEER')
+                                        continue;
 
                                     /*let oa = row[3];
                                     let lc = row[4]
