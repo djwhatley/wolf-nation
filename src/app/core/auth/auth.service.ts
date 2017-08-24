@@ -49,8 +49,9 @@ export class AuthService {
   isGoogleTokenValid(token: string): boolean {
     let decoded = JwtHelper.decodeToken(token);
 
-    let exp = new Date(decoded.gt_expires);
-    return (Date.now() > exp.getTime())
+    let exp_ms = decoded.gt_expires * 1000;
+    let exp = new Date(exp_ms);
+    return (Date.now() < exp.getTime())
   }
 
   refreshToken(callback: Function) {

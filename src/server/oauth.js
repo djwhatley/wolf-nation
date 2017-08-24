@@ -119,8 +119,6 @@ router.get('/newtoken', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
         return;
     }
 
-    let authorization = 'Bearer ' + req.user.google_token;
-
     db.connect((err, conn) => {
         if (err)
             res.status(500).send(err);
