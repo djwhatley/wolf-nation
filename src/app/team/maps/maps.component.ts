@@ -4,6 +4,7 @@ import { ApiService } from 'app/core/api';
 
 import { GeoDataService } from 'app/core/geo-data.service';
 import { Legislator  } from 'app/core/legislators';
+import { TeamService } from 'app/core/teams/team.service';
 
 import { Volunteer } from 'app/core/volunteers/volunteer.model';
 
@@ -22,7 +23,8 @@ export class MapsComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private geoService: GeoDataService
+    private geoService: GeoDataService,
+    private teamService: TeamService
   ) { }
 
   map: any;
@@ -47,8 +49,15 @@ export class MapsComponent implements OnInit {
 
   generatedMap: string;
 
+  team: string;
+
   ngOnInit() {
     this.loading = true;
+
+    this.team = this.teamService.getTeam();
+    this.teamService.getTeamObservable().subscribe((team) => {
+      this.team = team;
+    });
   }
 
   getMap() {
@@ -67,7 +76,7 @@ export class MapsComponent implements OnInit {
 
   getGeoData() {
     delete this.geoData;
-    this.geoService.getDistrictMap('ga', this.house)
+    this.geoService.getDistrictMap(this.team, this.house)
     .then((res) => {
       this.geoData = res.json();
       console.log(this.geoData);
@@ -191,7 +200,7 @@ export class MapsComponent implements OnInit {
   getVolunteers() {
     delete this.volunteers;
     delete this.districtVolunteers;
-    this.apiService.volunteers.getByState('ga', (volunteers) => {
+    this.apiService.volunteers.getByState(this.team, (volunteers) => {
       this.volunteers = volunteers;
 
       console.log(this.volunteers);

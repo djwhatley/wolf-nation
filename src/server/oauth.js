@@ -64,31 +64,34 @@ router.get('/oauth2login', (req, res) => {
                             return;
                         }
 
-                        let exp = new Date((Date.now() / 1000) + parseInt(data['expires_in']));
-                        let payload = {
-                            google_token: data['access_token'],
-                            gt_expires: exp.getTime(),
-                            email: email
-                        }
-
-                        let token = jwtlib.encode(payload, process.env.JWT_SECRET);
+                        
 
                         db.connect((err, conn) => {
                             if (err)
                                 res.status(500).send(err);
                             else {
+                                let exp = new Date((Date.now() / 1000) + parseInt(data['expires_in']));
+                                let payload = {
+                                    google_token: data['access_token'],
+                                    gt_expires: exp.getTime(),
+                                    email: email,
+                                }
+
                                 var users = conn.collection('users');
                                 users.findOne({ email: email }, (err, user) => {
                                     if (!user) {
                                         users.insertOne({
                                             email: email,
-                                            refresh_token: data['refresh_token']
+                                            refresh_token: data['refresh_token'],
+                                            team: req.query.state
                                         }, (err, result) => {
                                             if (err || !result || !result.insertedCount) {
                                                 frag += '0';
                                                 frag += '&error_description=' + 'Serious Error: Something bad happened between logging in and creating the user; user will need to revoke access to get a refresh token.';
                                             }
                                             else {
+                                                payload.team = req.query.state;
+
                                                 frag += '1';
                                                 frag += '&token=' + token;
                                             }
@@ -96,6 +99,10 @@ router.get('/oauth2login', (req, res) => {
                                         });
                                     }
                                     else {
+                                        payload.team = user.team;
+
+                                        let token = jwtlib.encode(payload, process.env.JWT_SECRET);
+
                                         frag += '1';
                                         frag += '&token=' + token;
                                         res.redirect(process.env.APP_HOST + '/login' + frag);

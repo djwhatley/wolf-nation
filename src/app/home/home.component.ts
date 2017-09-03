@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   requestAuth() {
-    this.authService.requestAuthorization();
+    this.authService.requestAuthorization('ga');
   }
 
 }

@@ -15,7 +15,6 @@ const SHEET_LCR_TABS = {
 const SHEET_VOLUNTEERS_TABS = [
     "Dylan's Volunteers",
     "Heidi's Volunteers",
-    "Kyle's Volunteers"
 ];
 
 router.get('/', (req, res) => {
@@ -169,15 +168,16 @@ router.get('/:state/volunteers', jwt({ secret: process.env.JWT_SECRET }), (req, 
                             }, (error, response, body) => {
 
                                 if (error) {
-                                    console.error(error);
-                                    res.status(500).send(error)
+                                    if (!res._headerSent)
+                                        res.status(500).send(error)
                                     return;
                                 }
                                 
                                 let data = JSON.parse(body);
 
                                 if (data.error) {
-                                    res.status(data.error.code).send(data.error.message);
+                                    if (!res._headerSent)
+                                        res.status(data.error.code).send(data.error.message);
                                     return;
                                 }
 

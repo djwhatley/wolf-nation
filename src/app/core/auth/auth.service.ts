@@ -22,19 +22,20 @@ export class AuthService {
   accessToken: string;
   expires: Date;
 
-  private getOAuthUrl(): string {
+  private getOAuthUrl(team: string): string {
     let url: string = 'https://accounts.google.com/o/oauth2/v2/auth';
     url += '?client_id=' + OAUTH_ID;
     url += '&redirect_uri=' + environment.apiHost + environment.oAuthUrl + 'oauth2login';
     url += '&response_type=code';
     url += '&scope=email https://www.googleapis.com/auth/spreadsheets.readonly';
     url += '&access_type=offline';
+    url += '&state=' + team;
 
     return url;
   }
 
-  requestAuthorization() {
-    location.href = this.getOAuthUrl();
+  requestAuthorization(team: string) {
+    location.href = this.getOAuthUrl(team);
   }
 
   isAuth(): boolean {
@@ -44,6 +45,14 @@ export class AuthService {
 
   getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
+  }
+
+  getTokenObject(): any {
+    let token = this.getToken();
+    if (token)
+      return JwtHelper.decodeToken(token);
+    else
+      return null;
   }
 
   isGoogleTokenValid(token: string): boolean {

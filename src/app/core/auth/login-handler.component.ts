@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService, GoogleToken } from 'app/core/auth';
+import { AuthService, JwtHelper } from 'app/core/auth';
 
 @Component({
   selector: 'app-login-handler',
@@ -34,8 +34,10 @@ export class LoginHandlerComponent implements OnInit {
         else {
           this.authService.storeToken(params['token']);
         }
+
+        let token = JwtHelper.decodeToken(params['token']);
         
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('/' + token['team'] + '/home');
       }
     });
   }

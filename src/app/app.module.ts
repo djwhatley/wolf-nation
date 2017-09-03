@@ -11,13 +11,15 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { MapsComponent } from './maps/maps.component';
+import { MapsComponent } from './team/maps/maps.component';
+import { TeamHomeComponent } from './team/home/team-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MapsComponent
+    MapsComponent,
+    TeamHomeComponent
   ],
   imports: [
     BrowserModule,
