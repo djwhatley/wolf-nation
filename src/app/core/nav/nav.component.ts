@@ -36,7 +36,7 @@ export class NavComponent implements OnInit {
       this.isAuth = this.authService.isAuth();
 
       let user = this.authService.getTokenObject();
-      if (this.isAuth && user.team == team) {
+      if (user && user.team == team) {
         this.navItems = [
           {
             text: 'Maps',
