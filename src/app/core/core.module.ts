@@ -15,7 +15,6 @@ import { LayoutComponent } from './layout/layout.component';
 import { LegislatorsComponent } from './legislators/legislators.component';
 import { LoginHandlerComponent } from './auth/login-handler.component';
 import { NavComponent } from './nav/nav.component';
-import { TeamWrapperComponent } from './wrappers';
 import { ErrorComponent } from './error/error.component';
 
 @NgModule({
@@ -23,7 +22,7 @@ import { ErrorComponent } from './error/error.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [LayoutComponent, LegislatorsComponent, LoginHandlerComponent, NavComponent, TeamWrapperComponent, ErrorComponent],
+  declarations: [LayoutComponent, LegislatorsComponent, LoginHandlerComponent, NavComponent, ErrorComponent],
   providers: [ApiService, AuthHttp, AuthGuard, AuthService, ErrorService, GeoDataService, LegislatorsService, TeamService, VolunteersService]
 })
 export class CoreModule { }

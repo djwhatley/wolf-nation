@@ -6,9 +6,7 @@ import { ErrorComponent} from 'app/core/error';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from 'app/core/layout/layout.component';
 import { LoginHandlerComponent } from 'app/core/auth/login-handler.component';
-import { MapsComponent } from './team/maps/maps.component';
-import { TeamHomeComponent } from './team/home/team-home.component';
-import { TeamWrapperComponent } from 'app/core/wrappers';
+import { MapsComponent, TeamHomeComponent, TeamWrapperComponent } from './team';
 
 const routes: Routes = [
     { path: 'login', component: LoginHandlerComponent },

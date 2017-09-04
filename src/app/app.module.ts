@@ -8,18 +8,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { TeamModule } from './team/team.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { MapsComponent } from './team/maps/maps.component';
-import { TeamHomeComponent } from './team/home/team-home.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    MapsComponent,
-    TeamHomeComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +26,8 @@ import { TeamHomeComponent } from './team/home/team-home.component';
     HttpModule,
     NgbModule.forRoot(),
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    TeamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
