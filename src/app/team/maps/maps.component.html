@@ -18,7 +18,7 @@
       <label>Map Type</label>
       <div>
         <button type="button" class="btn btn-sm" [class.btn-primary]="mapType == 'leg_support'" [class.btn-secondary]="mapType != 'leg_support'" (click)="mapType = 'leg_support'">Legislators</button>
-        <button type="button" class="btn btn-sm" [class.btn-primary]="mapType == 'volunteers'" [class.btn-secondary]="mapType != 'volunteers'" (click)="mapType = 'volunteers'">Volunteers</button>
+        <button type="button" class="btn btn-sm" [class.btn-primary]="mapType == 'volunteers'" [class.btn-secondary]="mapType != 'volunteers'" (click)="mapType = 'volunteers'" *ngIf="team == 'ga'">Volunteers</button>
       </div>
     </div>
 
