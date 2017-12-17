@@ -23,14 +23,14 @@ export class NavComponent implements OnInit {
   isAuth: boolean;
 
   ngOnInit() {
-    this.brand = 'WolfPAC';
+    this.brand = 'Wolf-PAC';
     this.teamService.getTeamObservable().subscribe((team) => {
       if (this.teamService.isTeamValid(team)) {
         this.team = team;
-        this.brand = 'WolfPAC '  + team.toUpperCase();      
+        this.brand = 'Wolf-PAC '  + team.toUpperCase();      
       }
       else {
-        this.brand = 'WolfPAC';
+        this.brand = 'Wolf-PAC';
       }
 
       this.isAuth = this.authService.isAuth();
