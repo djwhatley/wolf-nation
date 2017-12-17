@@ -75,7 +75,9 @@ router.get('/oauth2login', (req, res) => {
                                     google_token: data['access_token'],
                                     gt_expires: exp.getTime(),
                                     email: email,
-                                }
+                                };
+
+                                let token;
 
                                 var users = conn.collection('users');
                                 users.findOne({ email: email }, (err, user) => {
@@ -91,6 +93,7 @@ router.get('/oauth2login', (req, res) => {
                                             }
                                             else {
                                                 payload.team = req.query.state;
+                                                token = jwtlib.encode(payload, process.env.JWT_SECRET);
 
                                                 frag += '1';
                                                 frag += '&token=' + token;
@@ -100,8 +103,7 @@ router.get('/oauth2login', (req, res) => {
                                     }
                                     else {
                                         payload.team = user.team;
-
-                                        let token = jwtlib.encode(payload, process.env.JWT_SECRET);
+                                        token = jwtlib.encode(payload, process.env.JWT_SECRET);
 
                                         frag += '1';
                                         frag += '&token=' + token;
