@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { TeamModule } from './team/team.module';
+import { AboutModule } from './about/about.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -25,6 +26,7 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    AboutModule,
     AppRoutingModule,
     CoreModule,
     TeamModule

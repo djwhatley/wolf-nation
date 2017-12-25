@@ -1,0 +1,1 @@
+export * from './privacy/privacy-policy.component';
