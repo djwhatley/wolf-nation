@@ -59,16 +59,16 @@ export class LegislatorsComponent implements OnInit {
 
         switch (leg.score) {
           case 1:
-            supportBadgeClass = 'badge-danger';
-            supportLevelText = 'Not Supportive';
+            supportBadgeClass = 'badge-success';
+            supportLevelText = 'Supportive';
             break;
           case 2:
             supportBadgeClass = 'badge-warning';
             supportLevelText = 'Unsure';
             break;
           case 3:
-            supportBadgeClass = 'badge-success';
-            supportLevelText = 'Supportive';
+            supportBadgeClass = 'badge-danger';
+            supportLevelText = 'Not Supportive';
             break;
           case 4:
             supportBadgeClass = 'badge-light';
