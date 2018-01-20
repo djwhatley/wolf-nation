@@ -112,7 +112,7 @@ router.get('/:state/legislators', jwt({ secret: process.env.JWT_SECRET }), (req,
                                         district: Number.parseInt(row[0]),
                                         full_name: row[1],
                                         party: row[2],
-                                        role: row[3],
+                                        title: row[3],
                                         score: row[4] ? Number.parseInt(row[4]) : 0,
                                         first_name: match ? match[1][0].toUpperCase() + match[1].substring(1, match[1].length) : '',
                                         last_name: match ? match[2][0].toUpperCase() + match[2].substring(1, match[2].length) : '',
@@ -132,6 +132,10 @@ router.get('/:state/legislators', jwt({ secret: process.env.JWT_SECRET }), (req,
             });
         }
     })
+});
+
+router.get('/:state/legislators/:house/:district', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
+    res.status(200).send();
 });
 
 router.get('/:state/volunteers', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
