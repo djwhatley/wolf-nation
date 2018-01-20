@@ -51,13 +51,19 @@ export class MapsComponent implements OnInit {
 
   team: string;
 
+  sub: any;
+
   ngOnInit() {
     this.loading = true;
 
     this.team = this.teamService.getTeam();
-    this.teamService.getTeamObservable().subscribe((team) => {
+    this.sub = this.teamService.getTeamObservable().subscribe((team) => {
       this.team = team;
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   getMap() {
@@ -114,7 +120,7 @@ export class MapsComponent implements OnInit {
     console.log(house);
     delete this.legs;
     this.apiService.legislators.get({
-      state: 'ga',
+      state: this.team,
       house: house
     }, (res) => {
       this.legs = res;
