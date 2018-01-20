@@ -12,7 +12,6 @@ import { VolunteersService } from './volunteers/volunteers.service';
 import { AuthGuard, AuthHttp, AuthService } from './auth';
 
 import { LayoutComponent } from './layout/layout.component';
-import { LegislatorsComponent } from './legislators/legislators.component';
 import { LoginHandlerComponent } from './auth/login-handler.component';
 import { NavComponent } from './nav/nav.component';
 import { ErrorComponent } from './error/error.component';
@@ -22,7 +21,7 @@ import { ErrorComponent } from './error/error.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [LayoutComponent, LegislatorsComponent, LoginHandlerComponent, NavComponent, ErrorComponent],
+  declarations: [LayoutComponent, LoginHandlerComponent, NavComponent, ErrorComponent],
   providers: [ApiService, AuthHttp, AuthGuard, AuthService, ErrorService, GeoDataService, LegislatorsService, TeamService, VolunteersService]
 })
 export class CoreModule { }

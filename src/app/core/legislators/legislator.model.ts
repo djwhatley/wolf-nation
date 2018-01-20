@@ -7,7 +7,9 @@ export class Legislator {
   chamber: string;
   district: number;
   party: string;
-  role: string;
+  title: string;
   score: number;
+
+  detail?: any;
   //photo_url: string; 
 }

@@ -6,7 +6,7 @@ import { ErrorComponent} from 'app/core/error';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from 'app/core/layout/layout.component';
 import { LoginHandlerComponent } from 'app/core/auth/login-handler.component';
-import { MapsComponent, TeamHomeComponent, TeamWrapperComponent } from './team';
+import { LegislatorsComponent, LegislatorDetailComponent, MapsComponent, TeamHomeComponent, TeamWrapperComponent } from './team';
 import { PrivacyPolicyComponent } from 'app/about';
 
 const routes: Routes = [
@@ -21,8 +21,12 @@ const routes: Routes = [
             { path: '', canActivateChild: [AuthGuard], children: [
                 { path: '', component: TeamHomeComponent },
                 { path: 'home', component: TeamHomeComponent },
+                { path: 'legislators', children: [
+                    { path: '', component: LegislatorsComponent },
+                    { path: ':h/:district', component: LegislatorDetailComponent }
+                ]},
                 { path: 'maps', component: MapsComponent}
-            ]},            
+            ]},
         ]},
     ]},
 ]

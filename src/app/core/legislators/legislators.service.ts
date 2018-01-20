@@ -24,4 +24,11 @@ export class LegislatorsService {
       .toPromise()
       .then((res) => res.json());
   }
+
+  getLegislatorDetail(state: string, house: string, district: number): Promise<Legislator> {
+    let url = API_URL + `${state}/legislators/${house}/${district}`;
+    return this.http.get(url)
+      .toPromise()
+      .then((res) => res.json());
+  }
 }

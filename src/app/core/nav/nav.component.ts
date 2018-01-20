@@ -39,8 +39,12 @@ export class NavComponent implements OnInit {
       if (user && user.team == team) {
         this.navItems = [
           {
+            text: 'Legislators',
+            href: `/${team}/legislators`
+          },
+          {
             text: 'Maps',
-            href: '/' + team + '/maps'
+            href: `/${team}/maps`
           }
         ];
       }

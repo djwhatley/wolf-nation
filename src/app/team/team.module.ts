@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MapsComponent } from './maps/maps.component';
 import { TeamHomeComponent } from './home/team-home.component';
 import { TeamWrapperComponent } from './wrapper/team-wrapper.component';
+import { LegislatorsComponent } from './legislators/legislators.component';
+import { LegislatorDetailComponent } from './legislators/detail/legislator-detail.component';
 
 @NgModule({
   imports: [
@@ -14,7 +16,9 @@ import { TeamWrapperComponent } from './wrapper/team-wrapper.component';
   declarations: [
     MapsComponent,
     TeamHomeComponent,
-    TeamWrapperComponent
+    TeamWrapperComponent,
+    LegislatorsComponent,
+    LegislatorDetailComponent
   ]
 })
 export class TeamModule { }
