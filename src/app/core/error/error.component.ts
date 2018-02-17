@@ -18,8 +18,8 @@ export class ErrorComponent implements OnInit {
     this.error = this.errorService.getError();
     if (!this.error) {
       this.error = {
-        title: 'Do Something About This',
-        message: 'You already know what it is...'
+        title: 'Whoops',
+        message: 'Looks like something went wrong.'
       }
     }
   }
