@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { MapsComponent } from './maps/maps.component';
 import { TeamHomeComponent } from './home/team-home.component';
 import { TeamWrapperComponent } from './wrapper/team-wrapper.component';
@@ -11,7 +13,8 @@ import { LegislatorDetailComponent } from './legislators/detail/legislator-detai
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   declarations: [
     MapsComponent,

@@ -1,3 +1,57 @@
-<p>
-  legislator-detail works!
-</p>
+<div class="container" *ngIf="detail" style="margin-top: 1em">
+
+  <div class="row">
+    <div class="col-sm-12 col-md-5">
+      <img id="photoUrl" [src]="detail.photo_url" width="200" height="250" />
+      <h3>{{detail.name}} <span class="badge {{detail.partyBadgeClass}}">{{detail.party.charAt(0)}}</span> </h3>
+      <h5 [innerHtml]="detail.titleHtml"></h5>
+    </div>
+
+    <div class="col-sm-12 col-md-7">
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Chamber</th>
+            <td>{{ house == 'lower' ? 'House' : 'Senate' }}</td>
+          </tr>
+          <tr>
+            <th>District</th>
+            <td>{{detail.district}}</td>
+          </tr>
+          <tr>
+            <th>Served</th>
+            <td>{{detail.years_served}} yr.</td>
+          </tr>
+          <tr>
+            <th>Committees</th>
+            <td [innerHtml]="detail.cmteHtml"></td>
+          </tr>
+          <tr>
+            <th>Office</th>
+            <td>{{detail.office}}</td>
+          </tr>
+          <tr>
+            <th>Phone(s)</th>
+            <td [innerHtml]="detail.phoneHtml"></td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{detail.email}}</td>
+          </tr>
+
+          <tr>
+            <th>Notes</th>
+            <td>{{detail.notes}}</td>
+          </tr>
+          <tr>
+            <th>Support</th>
+            <td><app-support-badge [level]="detail.support"></app-support-badge></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>

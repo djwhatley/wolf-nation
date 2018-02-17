@@ -25,7 +25,7 @@ export class LegislatorsService {
       .then((res) => res.json());
   }
 
-  getLegislatorDetail(state: string, house: string, district: number): Promise<Legislator> {
+  getLegislatorDetail(state: string, house: string, district: number): Promise<any> {
     let url = API_URL + `${state}/legislators/${house}/${district}`;
     return this.http.get(url)
       .toPromise()

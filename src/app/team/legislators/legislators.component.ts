@@ -92,6 +92,6 @@ export class LegislatorsComponent implements OnInit {
 
   viewDetail(leg: Legislator) {
     let h = (leg.chamber == 'lower') ? 'l' : 'u';
-    //this.router.navigate([h, leg.district], { relativeTo: this.route });
+    this.router.navigate([h, leg.district], { relativeTo: this.route });
   }
 }
