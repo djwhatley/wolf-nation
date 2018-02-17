@@ -1,3 +1,8 @@
 nav.navbar {
     background-color: #333;
 }
+
+nav.navbar .navbar-toggler {
+    position: absolute;
+    right: 1rem;
+}
