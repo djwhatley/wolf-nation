@@ -9,6 +9,10 @@
             <li class="nav-item" *ngFor="let item of navItems">
                 <a class="nav-link" [routerLink]="item.href" routerLinkActive="active">{{item.text}}</a>
             </li>
+
+            <li class="nav-item" [hidden]="!isAuth">
+                <a class="nav-link" href="javascript:" (click)="logout()">Log Out</a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from 'app/core/auth';
 import { TeamService } from 'app/core/teams/team.service';
@@ -13,8 +13,9 @@ export class NavComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private teamService: TeamService,
     private route: ActivatedRoute,
-    private teamService: TeamService
+    private router: Router
   ) { }
 
   brand: string;
@@ -49,7 +50,11 @@ export class NavComponent implements OnInit {
         ];
       }
     });
+  }
 
-    
+  logout() {
+    this.authService.deleteToken();
+    this.isAuth = false;
+    this.router.navigateByUrl('/');
   }
 }
