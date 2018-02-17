@@ -135,7 +135,87 @@ router.get('/:state/legislators', jwt({ secret: process.env.JWT_SECRET }), (req,
 });
 
 router.get('/:state/legislators/:house/:district', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
-    res.status(200).send();
+    if (!req.user) {
+        res.status(401).send();
+        return;
+    }
+
+    let authorization = 'Bearer ' + req.user.google_token;
+
+    db.connect((err, conn) => {
+        if (err)
+            res.status(500).send(err);
+        else {
+            var teams = conn.collection('teams');
+            teams.findOne({ id: req.params.state }, (err, team) => {
+                if (err)
+                    res.status(500).send(err);
+                else {
+                    if (team && team.docs.ldetails) {
+                        let sheet = team.docs.ldetails;
+
+                        let row = 3;
+                        if (req.params.house == 'upper')
+                            row = 185;
+                        
+                        let dist = parseInt(req.params.district);
+                        if (isNaN(dist)) {
+                            req.status(400).send("Bad Request: parameter 'district' must be a number.");
+                            return;
+                        }
+
+                        row += dist;
+
+                        request({
+                            method: 'get',
+                            url: SHEETS_API_URL + sheet + '/values/Congress lists' + `!B${row}:O${row}`,
+                            headers: {
+                                'Authorization': authorization
+                            }
+                        }, (err, response, body) => {
+                            if (err) {
+                                console.error(error);
+                                res.status(500).send(err);
+                                return;
+                            }
+
+                            let data = JSON.parse(body);
+                            if (data.error) {
+                                res.status(data.error.code).send(data.error.message);
+                                return;
+                            }
+
+                            if (!data.values || !data.values.length) {
+                                res.status(404).send();
+                                return;
+                            }
+
+                            let l = data.values[0];
+                            let detail = {
+                                district: parseInt(l[0]),
+                                name: l[1],
+                                party: l[2],
+                                title: l[3],
+                                city: l[4],
+                                years_served: parseInt(l[6]),
+                                support: parseInt(l[7]),
+                                committees: l[8],
+                                notes: l[9],
+                                email: l[10],
+                                phones: l[11],
+                                office: l[12],
+                                photo_url: l[13]
+                            };
+
+                            res.status(200).send(detail);
+                        });
+                    }
+                    else
+                        res.status(404).send('Not Found');
+                }
+            });
+        }
+    });
 });
 
 router.get('/:state/volunteers', jwt({ secret: process.env.JWT_SECRET }), (req, res) => {
